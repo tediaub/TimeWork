@@ -1,7 +1,14 @@
 .label {
     -fx-font-family: "Roboto Blk";
-    -fx-text-fill: #40d0ad;
+    -fx-text-fill: #4d637b;
     -fx-font-weight: bold;
+}
+
+.title {
+    -fx-font-family: "Roboto Blk";
+    -fx-text-fill: #707070;
+    -fx-font-weight: bold;
+    -fx-font-size: 14px;
 }
 
 #hrMin{
@@ -13,9 +20,14 @@
 }
 
 #extendedBar:play > .Rectangle{
-	-fx-fill: #40d0ad;
+	-fx-fill: #cc3300;/*#40d0ad;*/
 }
 
 #extendedBar > .Rectangle{
-	-fx-fill: #FF9933;
+	-fx-fill: #4d637b;
+}
+
+.button{
+	-fx-background-radius: 5em;
+	-fx-background-color: #4d637b
 }

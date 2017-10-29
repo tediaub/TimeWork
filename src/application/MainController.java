@@ -3,7 +3,6 @@ package application;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.beans.value.WritableValue;
@@ -12,17 +11,18 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import javafx.util.StringConverter;
 
 public class MainController {
 
 	private Main main;
-    private boolean isMoving = false;
     private Timer timer;
     private BlockedBooleanProperty extended = new BlockedBooleanProperty();
 
@@ -33,28 +33,13 @@ public class MainController {
     @FXML
     private Label timeSecLabel;
     @FXML
+    private Label titleLabel;
+    @FXML
     private ImageView playPauseImage;
 
 
 	@FXML
 	private void initialize(){
-		timer = new Timer();
-		timeHrMinLabel.textProperty().bind(timer.getTimeHrMinTextProperty());
-		timeSecLabel.textProperty().bind(timer.getTimeSecTextProperty());
-
-		timer.getStateProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				if(newValue == Timer.PAUSE){
-					root.pseudoClassStateChanged(PseudoClass.getPseudoClass("play"), false);
-					playPauseImage.setImage(new Image(MainController.class.getResourceAsStream("play.png")));
-				}else{
-					root.pseudoClassStateChanged(PseudoClass.getPseudoClass("play"), true);
-					playPauseImage.setImage(new Image(MainController.class.getResourceAsStream("pause.png")));
-				}
-			}
-		});
-
 		extended.addListener(new ChangeListener<Boolean>() {
 
 			private Timeline timeline = new Timeline();
@@ -94,6 +79,35 @@ public class MainController {
 		setDragPane(root);
 	}
 
+	public void setTimer(Timer timer){
+		this.timer = timer;
+
+		titleLabel.textProperty().unbind();
+		timeHrMinLabel.textProperty().unbind();
+		timeSecLabel.textProperty().unbind();
+
+		titleLabel.textProperty().bind(timer.getTitleProperty());
+		timeHrMinLabel.textProperty().bind(timer.getTimeHrMinTextProperty());
+		timeSecLabel.textProperty().bind(timer.getTimeSecTextProperty());
+
+		timer.getStateProperty().addListener(new ChangeListener<Boolean>() {
+			@Override
+			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				if(newValue == Timer.PAUSE){
+					root.pseudoClassStateChanged(PseudoClass.getPseudoClass("play"), false);
+					playPauseImage.setImage(new Image(MainController.class.getResourceAsStream("play.png")));
+				}else{
+					root.pseudoClassStateChanged(PseudoClass.getPseudoClass("play"), true);
+					playPauseImage.setImage(new Image(MainController.class.getResourceAsStream("pause.png")));
+				}
+			}
+		});
+	}
+
+	public void showHome(){
+		main.showHomeWindow();
+	}
+
 	public void setMain(Main main){
 		this.main = main;
 	}
@@ -125,7 +139,6 @@ public class MainController {
 	            if (me.getButton() == MouseButton.PRIMARY) {
 	                dragDelta.x = me.getSceneX();
 	                extended.setPropertyBlocked(true);
-	                isMoving = true;
 	            }
 	        }
 	    });
@@ -134,7 +147,6 @@ public class MainController {
 			@Override
 			public void handle(Event event) {
 				extended.setPropertyBlocked(false);
-				isMoving = false;
 			}
 		});
 

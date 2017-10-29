@@ -1,5 +1,6 @@
 package application;
 
+import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -10,8 +11,15 @@ import javafx.beans.property.SimpleStringProperty;
 
 public class Timer {
 
+	private String uniqueID = UUID.randomUUID().toString();
+
 	public static final boolean PLAY = true;
 	public static final boolean PAUSE = false;
+
+	private SimpleStringProperty titleProperty = new SimpleStringProperty();
+	private SimpleStringProperty consumerProperty = new SimpleStringProperty();
+	private SimpleStringProperty descriptionProperty = new SimpleStringProperty();
+	private SimpleStringProperty dateProperty = new SimpleStringProperty();
 
 	private long time = 0;
 
@@ -21,9 +29,49 @@ public class Timer {
 
 	private ScheduledExecutorService executor;
 
-	public Timer() {
+	public Timer(String id, String title, String consumer, String description, String date, long initTime) {
+		this(title, consumer, description, date, initTime);
+		uniqueID = id;
+	}
+
+	public Timer(String title, String consumer, String description, String date, long initTime) {
+		this(title, consumer, description, date);
+		time = initTime;
+		setTextProperty(time);
+	}
+
+	public Timer(String title, String consumer, String description, String date) {
 		stateProperty.setValue(PAUSE);
 		setTextProperty(time);
+
+		titleProperty.setValue(title);
+		consumerProperty.setValue(consumer);
+		descriptionProperty.setValue(description);
+		dateProperty.setValue(date);
+	}
+
+	public String getId(){
+		return uniqueID;
+	}
+
+	public SimpleStringProperty getTitleProperty(){
+		return titleProperty;
+	}
+
+	public SimpleStringProperty getConsumerProperty(){
+		return consumerProperty;
+	}
+
+	public SimpleStringProperty getDescriptionProperty(){
+		return descriptionProperty;
+	}
+
+	public SimpleStringProperty getDateProperty(){
+		return dateProperty;
+	}
+
+	public long getTime(){
+		return time;
 	}
 
 	public void start(){
@@ -48,7 +96,7 @@ public class Timer {
 
 	public void increaseTime(){
 		time++;
-
+		Main.updateTasks(this);
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="621.0" prefWidth="831.0" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.HomeViewController">
+   <children>
+      <Label layoutX="29.0" layoutY="19.0" prefHeight="17.0" prefWidth="164.0" text="Nom de la tâche:" AnchorPane.leftAnchor="45.0" />
+      <Label layoutX="33.0" layoutY="50.0" text="Nom du client:" AnchorPane.leftAnchor="45.0" />
+      <Label layoutX="34.0" layoutY="78.0" text="Description:" AnchorPane.leftAnchor="45.0" />
+      <Label layoutX="50.0" layoutY="153.0" text="Creation date" AnchorPane.leftAnchor="45.0" />
+      <Label layoutX="45.0" layoutY="184.0" prefHeight="17.0" prefWidth="94.0" text="Initial time (s): " AnchorPane.leftAnchor="45.0" />
+      <TextField fx:id="nameText" layoutX="178.0" layoutY="15.0" prefHeight="25.0" prefWidth="588.0" />
+      <TextField fx:id="customerText" layoutX="178.0" layoutY="46.0" prefHeight="25.0" prefWidth="588.0" />
+      <TextField fx:id="timeText" layoutX="178.0" layoutY="180.0" prefHeight="25.0" prefWidth="588.0" />
+      <TextArea fx:id="descriptionText" layoutX="178.0" layoutY="78.0" prefHeight="63.0" prefWidth="588.0" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="65.0" />
+      <Button layoutX="754.0" layoutY="578.0" mnemonicParsing="false" text="Button" visible="false" />
+      <ListView fx:id="timerList" layoutX="37.0" layoutY="280.0" prefHeight="255.0" prefWidth="729.0" />
+      <Button layoutX="729.0" layoutY="219.0" mnemonicParsing="false" onAction="#createTask" text="Add" />
+      <Separator layoutY="552.0" prefHeight="17.0" prefWidth="831.0" visible="false" />
+      <DatePicker fx:id="creationDate" editable="false" layoutX="329.0" layoutY="149.0" prefHeight="25.0" prefWidth="438.0" showWeekNumbers="true" AnchorPane.leftAnchor="178.0" AnchorPane.rightAnchor="65.0" />
+   </children>
+</AnchorPane>
