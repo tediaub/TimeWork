@@ -1,17 +1,23 @@
 package application;
 
+import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.io.IOException;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.WindowEvent;
 
 public class Main extends Application {
 
 	private Stage primaryStage;
-	private AnchorPane rootLayout;
+	private BorderPane rootLayout;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -19,32 +25,49 @@ public class Main extends Application {
 		try {
             // Load the root layout from the fxml file
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("MainWindow.fxml"));
-            rootLayout = (AnchorPane) loader.load();
-            Scene scene = new Scene(rootLayout);
+            rootLayout = (BorderPane) loader.load();
+            ((MainController)loader.getController()).setMain(this);
+            Scene scene = new Scene(rootLayout, Color.TRANSPARENT);
             primaryStage.setScene(scene);
-            primaryStage.show();
+            primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+				@Override
+				public void handle(WindowEvent event) {
+					System.exit(0);
+				}
+			});
+            initStage();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
 	}
 
-	public static void main(String[] args) {
-		//launch(args);
-
-		Chrono chrono = new Chrono();
-		chrono.start(); // démarrage du chrono
-		// ...
-		// code à chronométrer
-		// ...
-		chrono.pause(); // on peut faire une pause
-
-		chrono.resume(); // reprise du chrono
-		// ...
-		chrono.stop(); // arrêt
-		System.out.println(chrono.getDureeMs()); // affichage du résultat en millisecondes
-		System.out.println(chrono.getDureeSec()); // affichage en secondes
-		System.out.println(chrono.getDureeTxt()); // affichage au format "
+	public Stage getPrimaryStage(){
+		return primaryStage;
 	}
 
+	public void initStage(){
+		primaryStage.initStyle(StageStyle.TRANSPARENT);
 
+        GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+        Rectangle maximumWindowBounds = graphicsEnvironment.getMaximumWindowBounds();
+
+        primaryStage.setAlwaysOnTop(true);
+        primaryStage.show();
+        primaryStage.setX((maximumWindowBounds.getWidth()-primaryStage.getWidth())/2);
+        primaryStage.setY(-(primaryStage.getHeight()-15));
+	}
+
+	public void setStageX(double value){
+		primaryStage.setX(value);
+	}
+
+	public void setStageY(double value){
+		primaryStage.setY(value);
+	}
+
+	public static void main(String[] args) {
+		launch(args);
+	}
 }

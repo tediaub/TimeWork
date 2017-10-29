@@ -1,0 +1,21 @@
+.label {
+    -fx-font-family: "Roboto Blk";
+    -fx-text-fill: #40d0ad;
+    -fx-font-weight: bold;
+}
+
+#hrMin{
+	-fx-font-size: 25pt;
+}
+
+#seconde{
+	-fx-font-size: 10pt;
+}
+
+#extendedBar:play > .Rectangle{
+	-fx-fill: #40d0ad;
+}
+
+#extendedBar > .Rectangle{
+	-fx-fill: #FF9933;
+}
