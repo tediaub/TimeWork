@@ -82,7 +82,7 @@ public class MainController {
 					kv = new KeyValue(writableY, new Double(0));
 				}else{
 					kv = new KeyValue(writableY, -(main.getPrimaryStage().getHeight()-15));
-					timeline.setDelay(new Duration(1000));
+					timeline.setDelay(new Duration(200));
 				}
 				KeyFrame kf = new KeyFrame(Duration.millis(300), kv);
 
