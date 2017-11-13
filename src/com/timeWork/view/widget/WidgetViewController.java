@@ -1,4 +1,9 @@
-package application;
+package com.timeWork.view.widget;
+
+import com.timeWork.IViewController;
+import com.timeWork.Main;
+import com.timeWork.core.Timer;
+import com.timeWork.core.property.BlockedBooleanProperty;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -11,16 +16,14 @@ import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
-import javafx.util.StringConverter;
 
-public class MainController {
+public class WidgetViewController implements IViewController{
 
 	private Main main;
     private Timer timer;
@@ -95,10 +98,10 @@ public class MainController {
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
 				if(newValue == Timer.PAUSE){
 					root.pseudoClassStateChanged(PseudoClass.getPseudoClass("play"), false);
-					playPauseImage.setImage(new Image(MainController.class.getResourceAsStream("play.png")));
+					playPauseImage.setImage(new Image(WidgetViewController.class.getResourceAsStream("play.png")));
 				}else{
 					root.pseudoClassStateChanged(PseudoClass.getPseudoClass("play"), true);
-					playPauseImage.setImage(new Image(MainController.class.getResourceAsStream("pause.png")));
+					playPauseImage.setImage(new Image(WidgetViewController.class.getResourceAsStream("pause.png")));
 				}
 			}
 		});

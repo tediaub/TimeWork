@@ -1,9 +1,11 @@
-package application;
+package com.timeWork.core;
 
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import com.timeWork.Main;
 
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -87,7 +89,6 @@ public class Timer {
 	}
 
 	private class Task implements Runnable{
-
 		@Override
 		public void run() {
 			increaseTime();

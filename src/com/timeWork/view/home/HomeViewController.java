@@ -1,13 +1,21 @@
-package application;
+package com.timeWork.view.home;
+
+import com.timeWork.FxmlLoader;
+import com.timeWork.IViewController;
+import com.timeWork.core.Timer;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
-public class HomeViewController {
+public class HomeViewController implements IViewController{
 
     @FXML
     private TextField nameText;
@@ -32,10 +40,11 @@ public class HomeViewController {
 	}
 
 	public void createTask(){
-		Main.addTimer(new Timer(nameText.getText(),
-				customerText.getText(),
-				descriptionText.getText(),
-				creationDate.getValue().toString(),
-				Long.parseLong(timeText.getText())));
+        AnchorPane rootLayout = (AnchorPane) FxmlLoader.NEW_TASK_VIEW.getContentPane();
+        Scene scene = new Scene(rootLayout, Color.TRANSPARENT);
+        Stage stage = new Stage();
+        stage.setResizable(false);
+        stage.setScene(scene);
+        stage.show();
 	}
 }

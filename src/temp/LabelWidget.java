@@ -1,4 +1,4 @@
-package application;
+package temp;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.event.EventHandler;

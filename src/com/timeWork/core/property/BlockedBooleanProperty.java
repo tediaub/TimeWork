@@ -1,4 +1,4 @@
-package application;
+package com.timeWork.core.property;
 
 import javafx.beans.property.SimpleBooleanProperty;
 

@@ -1,16 +1,17 @@
-package application;
+package com.timeWork;
 
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
+
+import com.timeWork.core.TaskXml;
+import com.timeWork.core.Timer;
+import com.timeWork.view.home.HomeViewController;
+import com.timeWork.view.widget.WidgetViewController;
 
 import javafx.application.Application;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -25,7 +26,7 @@ public class Main extends Application {
 	private BorderPane rootLayout;
 	private static Stage stageHomeWindow;
 
-	private static MainController control;
+	private static WidgetViewController control;
 	private static ObservableList<Timer> timerList;
 
 	private static TaskXml taskXml;
@@ -43,39 +44,40 @@ public class Main extends Application {
 			e1.printStackTrace();
 		}
 
-		this.primaryStage = primaryStage;
-		try {
-            // Load the root layout from the fxml file
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("MainWindow.fxml"));
-            rootLayout = (BorderPane) loader.load();
-            control = (MainController)loader.getController();
-            control.setMain(this);
-            Scene scene = new Scene(rootLayout, Color.TRANSPARENT);
-            primaryStage.setScene(scene);
-            primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//		this.primaryStage = primaryStage;
+//
+//        // Load the root layout from the fxml file
+//		rootLayout = (BorderPane) FxmlLoader.WIDGET_VIEW.getContentPane();
+//        control = (WidgetViewController)FxmlLoader.WIDGET_VIEW.getController();
+//        control.setMain(this);
+//        Scene scene = new Scene(rootLayout, Color.TRANSPARENT);
+//        primaryStage.setScene(scene);
+//        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//
+//			@Override
+//			public void handle(WindowEvent event) {
+//				System.exit(0);
+//			}
+//		});
+//        initStage();
 
-				@Override
-				public void handle(WindowEvent event) {
-					System.exit(0);
-				}
-			});
-            initStage();
+        timerList = taskXml.getTaskList();
 
-            timerList = taskXml.getTaskList();
+        AnchorPane layout = (AnchorPane) FxmlLoader.HOME_VIEW.getContentPane();
+        HomeViewController controlHome = (HomeViewController)FxmlLoader.HOME_VIEW.getController();
+        controlHome.setTimerList(timerList);
 
-            FXMLLoader loader2 = new FXMLLoader(Main.class.getResource("homeView.fxml"));
-            AnchorPane layout = (AnchorPane) loader2.load();
-            HomeViewController controlHome = (HomeViewController)loader2.getController();
-            controlHome.setTimerList(timerList);
+        Scene scene2 = new Scene(layout, Color.TRANSPARENT);
+        stageHomeWindow = new Stage();
+        stageHomeWindow.setScene(scene2);
+        stageHomeWindow.setOnCloseRequest(new EventHandler<WindowEvent>() {
 
-            Scene scene2 = new Scene(layout, Color.TRANSPARENT);
-            stageHomeWindow = new Stage();
-            stageHomeWindow.setScene(scene2);
-            stageHomeWindow.show();
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+			@Override
+			public void handle(WindowEvent event) {
+				System.exit(0);
+			}
+		});
+        stageHomeWindow.show();
 	}
 
 	public static void showHomeWindow(){

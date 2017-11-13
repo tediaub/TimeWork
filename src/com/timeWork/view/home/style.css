@@ -1,0 +1,56 @@
+.label {
+    -fx-font-family: "Roboto Blk";
+    -fx-text-fill: #4d637b;
+    -fx-font-weight: bold;
+}
+
+.title {
+    -fx-font-family: "Roboto Blk";
+    -fx-text-fill: #707070;
+    -fx-font-weight: bold;
+    -fx-font-size: 16px;
+}
+
+#hrMin{
+	-fx-font-size: 16pt;
+}
+
+#seconde{
+	-fx-font-size: 8pt;
+}
+
+#extendedBar:play > .Rectangle{
+	-fx-fill: #cc3300;/*#40d0ad;*/
+}
+
+#extendedBar > .Rectangle{
+	-fx-fill: #4d637b;
+}
+
+.button{
+	-fx-background-radius: 5em;
+	-fx-background-color: #4d637b
+}
+
+.list-view {
+    -fx-padding: 10px ;
+    -fx-background-color: transparent  ;
+}
+
+.list-cell {
+    -fx-padding: 5px ;
+    -fx-background-color: transparent;
+    -fx-background-insets: 0px, 10px ;
+}
+
+.list-cell:empty {
+    -fx-padding: 5px ;
+    -fx-background-color: transparent ;
+    -fx-background-insets: 0 ;
+}
+
+.card{
+	-fx-background-radius: 5;
+	-fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.1), 10, 0, 0, 0	);
+	-fx-background-color:  #ffffff;
+}

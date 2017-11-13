@@ -10,9 +10,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane onMouseEntered="#extendStage" onMouseExited="#reduceStage" prefHeight="98.0" prefWidth="333.0" style="-fx-background-color: #ffffff; -fx-border-style: solid inside; -fx-border-color: grey; -fx-border-width: 1;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.MainController">
+<BorderPane onMouseEntered="#extendStage" onMouseExited="#reduceStage" prefHeight="98.0" prefWidth="333.0" style="-fx-background-color: #ffffff; -fx-border-style: solid inside; -fx-border-color: grey; -fx-border-width: 1;" stylesheets="@../../core/style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.timeWork.view.widget.WidgetViewController">
    <bottom>
-      <AnchorPane id="extendedBar" fx:id="root" prefHeight="15.0" prefWidth="219.0" style="-fx-background-color: #f0f0f0;" stylesheets="@style.css" BorderPane.alignment="CENTER">
+      <AnchorPane id="extendedBar" fx:id="root" prefHeight="15.0" prefWidth="219.0" style="-fx-background-color: #f0f0f0;" BorderPane.alignment="CENTER">
          <BorderPane.margin>
             <Insets />
          </BorderPane.margin>
@@ -28,12 +28,12 @@
             <Insets bottom="10.0" top="10.0" />
          </BorderPane.margin>
          <children>
-            <Label id="hrMin" fx:id="timeHrMinLabel" alignment="BOTTOM_RIGHT" layoutX="77.0" layoutY="28.0" minHeight="43.0" prefHeight="43.0" prefWidth="119.0" stylesheets="@style.css" text="00:00" textFill="#40d0ad">
+            <Label id="hrMin" fx:id="timeHrMinLabel" alignment="BOTTOM_RIGHT" layoutX="77.0" layoutY="28.0" minHeight="43.0" prefHeight="43.0" prefWidth="119.0" text="00:00" textFill="#40d0ad">
                <font>
                   <Font name="Roboto Black" size="36.0" />
                </font>
             </Label>
-            <Label id="seconde" fx:id="timeSecLabel" alignment="BOTTOM_CENTER" layoutX="199.0" layoutY="26.0" minHeight="43.0" stylesheets="@style.css" text="00" textFill="#40d0ad">
+            <Label id="seconde" fx:id="timeSecLabel" alignment="BOTTOM_CENTER" layoutX="199.0" layoutY="26.0" minHeight="43.0" text="00" textFill="#40d0ad">
                <font>
                   <Font size="18.0" />
                </font>

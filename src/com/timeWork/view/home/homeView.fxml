@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="621.0" prefWidth="831.0" style="-fx-background-color: #f4f4f4;" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.timeWork.view.home.HomeViewController">
+   <children>
+      <Button layoutX="754.0" layoutY="578.0" mnemonicParsing="false" text="Button" visible="false" />
+      <Separator layoutY="552.0" prefHeight="17.0" prefWidth="831.0" visible="false" />
+      <JFXButton layoutX="37.0" layoutY="37.0" onAction="#createTask" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: e9e9e9;" text=" Create Task" />
+      <JFXTextField focusColor="#4d637b" layoutX="629.0" layoutY="42.0" promptText="Search" unFocusColor="#4d637b" />
+      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="769.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@search.png" />
+         </image>
+      </ImageView>
+      <ListView fx:id="timerList" focusTraversable="false" layoutX="37.0" layoutY="92.0" prefHeight="490.0" prefWidth="753.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="92.0" />
+   </children>
+   <stylesheets>
+      <URL value="@../../core/style.css" />
+      <URL value="@style.css" />
+   </stylesheets>
+</AnchorPane>
