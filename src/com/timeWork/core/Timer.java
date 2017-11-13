@@ -19,7 +19,7 @@ public class Timer {
 	public static final boolean PAUSE = false;
 
 	private SimpleStringProperty titleProperty = new SimpleStringProperty();
-	private SimpleStringProperty consumerProperty = new SimpleStringProperty();
+	private SimpleStringProperty projectProperty = new SimpleStringProperty();
 	private SimpleStringProperty descriptionProperty = new SimpleStringProperty();
 	private SimpleStringProperty dateProperty = new SimpleStringProperty();
 
@@ -47,7 +47,7 @@ public class Timer {
 		setTextProperty(time);
 
 		titleProperty.setValue(title);
-		consumerProperty.setValue(consumer);
+		projectProperty.setValue(consumer);
 		descriptionProperty.setValue(description);
 		dateProperty.setValue(date);
 	}
@@ -60,8 +60,8 @@ public class Timer {
 		return titleProperty;
 	}
 
-	public SimpleStringProperty getConsumerProperty(){
-		return consumerProperty;
+	public SimpleStringProperty getProjectProperty(){
+		return projectProperty;
 	}
 
 	public SimpleStringProperty getDescriptionProperty(){

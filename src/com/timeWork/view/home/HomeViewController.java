@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 
 public class HomeViewController implements IViewController{
 
-    @FXML
+	@FXML
     private TextField nameText;
     @FXML
     private TextField customerText;

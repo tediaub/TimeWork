@@ -19,10 +19,10 @@ import javax.swing.SwingUtilities;
 
 public class LabelWidget extends JFrame {
 
-    class DragContext { 
+    class DragContext {
         double x;
-        double y; 
-    } 
+        double y;
+    }
 
     public LabelWidget() {
 
