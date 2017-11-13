@@ -13,7 +13,6 @@ public class PrimeListCell extends ListCell<Timer> {
 
     public PrimeListCell() {
         super();
-        // Chargement du FXML
         renderer = (Node) FxmlLoader.TASK_LIST_UI.getContentPane();
         rendererController = (TaskListUIController) FxmlLoader.TASK_LIST_UI.getController();
     }

@@ -2,10 +2,6 @@ package com.timeWork.core;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.sql.Savepoint;
-import java.text.DateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 import org.jdom.Document;
 import org.jdom.Element;
@@ -62,7 +58,7 @@ public class TaskXml{
 		Element task = new Element(taskMark);
 		task.setAttribute("id", timer.getId());
 		task.setAttribute("title", timer.getTitleProperty().get());
-		task.setAttribute("customer", timer.getConsumerProperty().get());
+		task.setAttribute("customer", timer.getProjectProperty().get());
 		task.setAttribute("description", timer.getDescriptionProperty().get());
 		task.setAttribute("date", timer.getDateProperty().get());
 		task.setAttribute("time", Long.toString(timer.getTime()));
@@ -78,7 +74,7 @@ public class TaskXml{
 			if(task.getAttributeValue("id").equals(timer.getId())){
 				task.setAttribute("id", timer.getId());
 				task.setAttribute("title", timer.getTitleProperty().get());
-				task.setAttribute("customer", timer.getConsumerProperty().get());
+				task.setAttribute("customer", timer.getProjectProperty().get());
 				task.setAttribute("description", timer.getDescriptionProperty().get());
 				task.setAttribute("date", timer.getDateProperty().get());
 				task.setAttribute("time", Long.toString(timer.getTime()));
