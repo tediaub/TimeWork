@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TimeWork>
   <TASKS>
+<<<<<<< HEAD
     <TASK id="4565f5e8-0beb-44f3-a283-1d1c39837e4a" title="Test" customer="test" description="efefef" date="5200" time="2602" />
+=======
+    <TASK id="4565f5e8-0beb-44f3-a283-1d1c39837e4a" title="Test" customer="test" description="efefef" date="5200" time="2600" />
+>>>>>>> refs/remotes/origin/master
     <TASK id="98ec0209-aee6-4fb8-9563-1f074ea88efc" title="ghdzgfez" customer="dcbgdchbds" description="bcdbcvdjbc" date="0" time="468" />
     <TASK id="bbfa45bb-53e0-4095-8d40-368d3215a606" title="rvgrvrg" customer="rgvgrvrgv" description="rvgrv" date="0" time="140" />
     <TASK id="b3370b8e-864f-4f71-bf57-5991b5de4ba4" title="rvgv" customer="rgvrv" description="rgvrg" date="0" time="124" />
