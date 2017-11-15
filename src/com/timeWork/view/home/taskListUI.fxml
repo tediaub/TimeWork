@@ -27,7 +27,7 @@
       </AnchorPane>
    </center>
    <right>
-      <JFXButton graphicTextGap="0.0" prefHeight="60.0" prefWidth="60.0" ripplerFill="#686868" style="-fx-background-color: #f0f0f0;" text="Details" BorderPane.alignment="CENTER" />
+      <JFXButton graphicTextGap="0.0" onAction="#showDetail" prefHeight="60.0" prefWidth="60.0" ripplerFill="#686868" style="-fx-background-color: #f0f0f0;" text="Details" BorderPane.alignment="CENTER" />
    </right>
    <left>
       <JFXButton fx:id="btnPlay" graphicTextGap="0.0" onAction="#playPause" prefHeight="60.0" prefWidth="60.0" ripplerFill="#344c64" styleClass="buttonPlay" BorderPane.alignment="CENTER">

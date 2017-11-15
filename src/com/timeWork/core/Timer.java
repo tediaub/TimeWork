@@ -1,15 +1,18 @@
 package com.timeWork.core;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.timeWork.Main;
-
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 
 public class Timer {
 
@@ -23,7 +26,7 @@ public class Timer {
 	private SimpleStringProperty descriptionProperty = new SimpleStringProperty();
 	private SimpleStringProperty dateProperty = new SimpleStringProperty();
 
-	private long time = 0;
+	private SimpleLongProperty time = new SimpleLongProperty(0);
 
 	private SimpleBooleanProperty stateProperty = new SimpleBooleanProperty();
 	private SimpleStringProperty timeHrMinTextProperty = new SimpleStringProperty();
@@ -31,25 +34,62 @@ public class Timer {
 
 	private ScheduledExecutorService executor;
 
-	public Timer(String id, String title, String consumer, String description, String date, long initTime) {
-		this(title, consumer, description, date, initTime);
-		uniqueID = id;
-	}
+	public Timer(String id, String title, String consumer, String description, long initTime) {
+		if(id != null){
+			uniqueID = id;
+		}
 
-	public Timer(String title, String consumer, String description, String date, long initTime) {
-		this(title, consumer, description, date);
-		time = initTime;
-		setTextProperty(time);
-	}
-
-	public Timer(String title, String consumer, String description, String date) {
 		stateProperty.setValue(PAUSE);
-		setTextProperty(time);
 
 		titleProperty.setValue(title);
 		projectProperty.setValue(consumer);
 		descriptionProperty.setValue(description);
-		dateProperty.setValue(date);
+
+		String format = "dd/MM/yy H:mm:ss";
+		SimpleDateFormat formater = new SimpleDateFormat(format);
+		dateProperty.setValue(formater.format(new Date()));
+
+		time.set(initTime);
+		setTextProperty();
+		time.addListener(new ChangeListener<Number>() {
+
+			@Override
+			public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						setTextProperty();
+					}
+				});
+			}
+		});
+
+		UpdateTaskListener listener = new UpdateTaskListener();
+		titleProperty.addListener(listener);
+		projectProperty.addListener(listener);
+		descriptionProperty.addListener(listener);
+		dateProperty.addListener(listener);
+		time.addListener(listener);
+	}
+
+	public Timer(String title, String consumer, String description, long initTime) {
+		this(null, title, consumer, description, initTime);
+	}
+
+	public Timer(String title, String consumer, String description) {
+		this(null, title, consumer, description, 0);
+	}
+
+	private class UpdateTaskListener implements ChangeListener<Object>{
+
+		@Override
+		public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
+			updateXmlTask();
+		}
+	}
+
+	public void updateXmlTask(){
+		TaskXml.updateTasks(this);
 	}
 
 	public String getId(){
@@ -58,6 +98,10 @@ public class Timer {
 
 	public SimpleStringProperty getTitleProperty(){
 		return titleProperty;
+	}
+
+	public SimpleLongProperty getTimeProperty(){
+		return time;
 	}
 
 	public SimpleStringProperty getProjectProperty(){
@@ -73,7 +117,7 @@ public class Timer {
 	}
 
 	public long getTime(){
-		return time;
+		return time.get();
 	}
 
 	public void start(){
@@ -96,14 +140,8 @@ public class Timer {
 	}
 
 	public void increaseTime(){
-		time++;
-		Main.updateTasks(this);
-		Platform.runLater(new Runnable() {
-			@Override
-			public void run() {
-				setTextProperty(time);
-			}
-		});
+		time.set(time.get()+1);
+		TaskXml.updateTasks(this);
 	}
 
 	public SimpleStringProperty getTimeHrMinTextProperty(){
@@ -114,19 +152,30 @@ public class Timer {
 		return timeSecTextProperty;
 	}
 
-	private void setTextProperty(long tempsS) {
-        int h = (int) (tempsS / 3600);
-        int m = (int) ((tempsS % 3600) / 60);
-        int s = (int) (tempsS % 60);
-
-        String sh, sm, ss;
-
-        if(h<10) {sh = "0" + h;}else{sh = "" + h;}
-        if(m<10) {sm = "0" + m;}else{sm = "" + m;}
-        if(s<10) {ss = "0" + s;}else{ss = "" + s;}
+	private void setTextProperty() {
+        String sh = getHoursText(60);
+        String sm = getMinutesText(60);
+        String ss = getSecondesText(60);
 
         timeHrMinTextProperty.set(sh + ":" + sm);
         timeSecTextProperty.set(ss);
+	}
+
+	public String getHoursText(int base){
+		int h = (int) (time.get() / 3600);
+		if(h<10) {return "0" + h;}else{return "" + h;}
+	}
+
+	public String getMinutesText(int base){
+		int m = (int) ((time.get() % 3600)/60);
+		m = m * base /60;
+		if(m<10) {return "0" + m;}else{return "" + m;}
+	}
+
+	public String getSecondesText(int base){
+		int s = (int) (time.get() % 60);
+		s = s * base /60;
+		if(s<10) {return "0" + s;}else{return "" + s;}
 	}
 
 	public boolean getState(){

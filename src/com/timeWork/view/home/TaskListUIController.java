@@ -1,8 +1,7 @@
 package com.timeWork.view.home;
 
-import com.timeWork.IViewController;
 import com.timeWork.core.Timer;
-import com.timeWork.view.widget.WidgetViewController;
+import com.timeWork.view.ViewController;
 
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ChangeListener;
@@ -11,9 +10,8 @@ import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 
-public class TaskListUIController implements IViewController{
+public class TaskListUIController extends ViewController{
 
     @FXML
     private Label titleTask;
@@ -71,5 +69,11 @@ public class TaskListUIController implements IViewController{
 		}else if(timer.getState() == Timer.PAUSE){
 			timer.start();
 		}
+	}
+
+	@FXML
+	private void showDetail(){
+		mainControl.getDetailController().setTimer(timer);
+		mainControl.showView(mainControl.getDetailController());
 	}
 }

@@ -1,8 +1,8 @@
 package com.timeWork.view.home;
 
-import com.timeWork.FxmlLoader;
-import com.timeWork.IViewController;
 import com.timeWork.core.Timer;
+import com.timeWork.view.FxmlLoader;
+import com.timeWork.view.ViewController;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-public class HomeViewController implements IViewController{
+public class HomeViewController extends ViewController{
 
 	@FXML
     private TextField nameText;
@@ -32,7 +32,7 @@ public class HomeViewController implements IViewController{
 
     @FXML
 	private void initialize(){
-    	timerList.setCellFactory((ListView<Timer> lv) -> new PrimeListCell());
+    	timerList.setCellFactory((ListView<Timer> lv) -> new TaskListCell());
     }
 
 	public void setTimerList(ObservableList<Timer> timerList2) {

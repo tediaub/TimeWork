@@ -2,15 +2,14 @@ package com.timeWork.view.home.newTask;
 
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.timeWork.IViewController;
-import com.timeWork.Main;
 import com.timeWork.core.Timer;
+import com.timeWork.view.ViewController;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class NewTaskController implements IViewController{
+public class NewTaskController extends ViewController{
 
 	@FXML
 	private AnchorPane rootPane;
@@ -22,7 +21,7 @@ public class NewTaskController implements IViewController{
     private JFXTextArea descriptionText;
 
     public void createTask(){
-		Main.addTimer(new Timer(nameText.getText(),
+		mainControl.addTimer(new Timer(nameText.getText(),
 				customerText.getText(),
 				descriptionText.getText(),
 				"0",

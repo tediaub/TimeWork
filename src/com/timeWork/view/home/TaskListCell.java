@@ -1,17 +1,17 @@
 package com.timeWork.view.home;
 
-import com.timeWork.FxmlLoader;
 import com.timeWork.core.Timer;
+import com.timeWork.view.FxmlLoader;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 
-public class PrimeListCell extends ListCell<Timer> {
+public class TaskListCell extends ListCell<Timer> {
 
     Node renderer;
     TaskListUIController rendererController;
 
-    public PrimeListCell() {
+    public TaskListCell() {
         super();
         renderer = (Node) FxmlLoader.TASK_LIST_UI.getContentPane();
         rendererController = (TaskListUIController) FxmlLoader.TASK_LIST_UI.getController();

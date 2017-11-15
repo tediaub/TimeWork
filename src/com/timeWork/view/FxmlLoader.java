@@ -1,4 +1,4 @@
-package com.timeWork;
+package com.timeWork.view;
 
 import java.io.IOException;
 
@@ -15,10 +15,11 @@ import javafx.scene.layout.Region;
  */
 public enum FxmlLoader {
 
-	HOME_VIEW("view/home/homeView.fxml", 0),
-	WIDGET_VIEW("view/widget/widgetView.fxml", 1),
-	TASK_LIST_UI("view/home/taskListUI.fxml", 2),
-	NEW_TASK_VIEW("view/home/newTask/newTaskView.fxml", 3);
+	HOME_VIEW("home/homeView.fxml", 0),
+	WIDGET_VIEW("widget/widgetView.fxml", 1),
+	TASK_LIST_UI("home/taskListUI.fxml", 2),
+	NEW_TASK_VIEW("home/newTask/newTaskView.fxml", 3),
+	TASK_DETAIL_VIEW("taskDetail/taskDetailView.fxml", 4);
 
 	private FXMLLoader loader;
 	private int index;
@@ -39,7 +40,7 @@ public enum FxmlLoader {
 		}
 	}
 
-	public IViewController getController(){
+	public ViewController getController(){
 		return loader.getController();
 	}
 

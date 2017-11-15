@@ -1,9 +1,9 @@
 package com.timeWork.view.widget;
 
-import com.timeWork.IViewController;
 import com.timeWork.Main;
 import com.timeWork.core.Timer;
 import com.timeWork.core.property.BlockedBooleanProperty;
+import com.timeWork.view.ViewController;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -23,7 +23,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 
-public class WidgetViewController implements IViewController{
+public class WidgetViewController extends ViewController{
 
 	private Main main;
     private Timer timer;
@@ -108,7 +108,7 @@ public class WidgetViewController implements IViewController{
 	}
 
 	public void showHome(){
-		main.showHomeWindow();
+		Main.showMainWindow();
 	}
 
 	public void setMain(Main main){

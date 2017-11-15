@@ -17,14 +17,14 @@ public class TaskXml{
 	private static final String tasksMark = "TASKS";
 	private static final String taskMark = "TASK";
 
-	private Document document;
-	private Element racine;
-	private Element tasks;
+	private static Document document;
+	private static Element racine;
+	private static Element tasks;
 
-	private String path;
+	private static String path;
 
-	public TaskXml(String path) throws Exception{
-		this.path = path;
+	public static void init(String path) throws Exception{
+		TaskXml.path = path;
 
 		//On crée une instance de SAXBuilder
 	    SAXBuilder sxb = new SAXBuilder();
@@ -34,7 +34,7 @@ public class TaskXml{
   	   	tasks = racine.getChild(tasksMark);
 	}
 
-	public ObservableList<Timer> getTaskList(){
+	public static ObservableList<Timer> getTaskList(){
 		ObservableList<Timer> array = FXCollections.observableArrayList();
 
 		for (int i = 0; i < tasks.getChildren(taskMark).size(); i++) {
@@ -44,15 +44,15 @@ public class TaskXml{
 					test.getAttributeValue("title"),
 					test.getAttributeValue("customer"),
 					test.getAttributeValue("description"),
-					test.getAttributeValue("date"),
 					Long.parseLong(test.getAttributeValue("time")));
+			t.getDateProperty().setValue(test.getAttributeValue("date"));
 			array.add(t);
 		}
 
 		return array;
 	}
 
-	public void addTask(Timer timer){
+	public static void addTask(Timer timer){
 		Element tasks = racine.getChild(tasksMark);
 
 		Element task = new Element(taskMark);
@@ -68,7 +68,7 @@ public class TaskXml{
 		saveFile();
 	}
 
-	public void updateTasks(Timer timer){
+	public static void updateTasks(Timer timer){
 		for (int i = 0; i < tasks.getChildren(taskMark).size(); i++) {
 			Element task = (Element) tasks.getChildren(taskMark).get(i);
 			if(task.getAttributeValue("id").equals(timer.getId())){
@@ -101,7 +101,7 @@ public class TaskXml{
 
 	//On enregistre notre nouvelle arborescence dans le fichier
 	//d'origine dans un format classique.
-	private void saveFile(){
+	private static void saveFile(){
 		try{
 			XMLOutputter sortie = new XMLOutputter(Format.getPrettyFormat());
 	        sortie.output(document, new FileOutputStream(path));
