@@ -1,5 +1,8 @@
 package com.timeWork.view.home;
 
+import java.util.ArrayList;
+
+import com.timeWork.core.TaskXml;
 import com.timeWork.core.Timer;
 import com.timeWork.view.FxmlLoader;
 import com.timeWork.view.ViewController;
@@ -47,4 +50,30 @@ public class HomeViewController extends ViewController{
         stage.setScene(scene);
         stage.show();
 	}
+
+    @FXML
+    void archiveTasks() {
+
+    }
+
+    @FXML
+    void deleteTasks() {
+    	ArrayList<Timer> timerToDelete = new ArrayList<>();
+    	for (int i = 0; i < timerList.getItems().size(); i++) {
+			Timer timer = timerList.getItems().get(i);
+			if(timer.isSelected()){
+				TaskXml.removeTasks(timer);
+				timerToDelete.add(timer);
+			}
+		}
+    	timerList.getItems().removeAll(timerToDelete);
+    }
+
+    @FXML
+    void selectAll() {
+    	for (int i = 0; i < timerList.getItems().size(); i++) {
+			Timer timer = timerList.getItems().get(i);
+			timer.setSelected(true);
+		}
+    }
 }

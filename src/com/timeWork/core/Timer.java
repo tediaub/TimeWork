@@ -34,18 +34,21 @@ public class Timer {
 
 	private ScheduledExecutorService executor;
 
-	public Timer(String id, String title, String consumer, String description, long initTime) {
+	private SimpleBooleanProperty selectedProperty = new SimpleBooleanProperty();
+
+	public Timer(String id, String title, String project, String description, long initTime) {
 		if(id != null){
 			uniqueID = id;
 		}
 
 		stateProperty.setValue(PAUSE);
+		selectedProperty.setValue(false);
 
 		titleProperty.setValue(title);
-		projectProperty.setValue(consumer);
+		projectProperty.setValue(project);
 		descriptionProperty.setValue(description);
 
-		String format = "dd/MM/yy H:mm:ss";
+		String format = "dd/MM/yy";
 		SimpleDateFormat formater = new SimpleDateFormat(format);
 		dateProperty.setValue(formater.format(new Date()));
 
@@ -64,7 +67,7 @@ public class Timer {
 			}
 		});
 
-		UpdateTaskListener listener = new UpdateTaskListener();
+		UpdateTaskListener listener = new UpdateTaskListener(this);
 		titleProperty.addListener(listener);
 		projectProperty.addListener(listener);
 		descriptionProperty.addListener(listener);
@@ -72,24 +75,30 @@ public class Timer {
 		time.addListener(listener);
 	}
 
-	public Timer(String title, String consumer, String description, long initTime) {
-		this(null, title, consumer, description, initTime);
+	public Timer(String title, String project, String description, long initTime) {
+		this(null, title, project, description, initTime);
 	}
 
-	public Timer(String title, String consumer, String description) {
-		this(null, title, consumer, description, 0);
+	public Timer(String title, String project, String description) {
+		this(null, title, project, description, 0);
 	}
 
 	private class UpdateTaskListener implements ChangeListener<Object>{
 
+		Timer timer;
+
+		public UpdateTaskListener(Timer timer) {
+			this.timer = timer;
+		}
+
 		@Override
 		public void changed(ObservableValue<? extends Object> observable, Object oldValue, Object newValue) {
-			updateXmlTask();
+			updateXmlTask(timer);
 		}
 	}
 
-	public void updateXmlTask(){
-		TaskXml.updateTasks(this);
+	public static void updateXmlTask(Timer timer){
+		TaskXml.updateTasks(timer);
 	}
 
 	public String getId(){
@@ -184,5 +193,17 @@ public class Timer {
 
 	public SimpleBooleanProperty getStateProperty(){
 		return stateProperty;
+	}
+
+	public boolean isSelected() {
+		return selectedProperty.get();
+	}
+
+	public SimpleBooleanProperty getSelectedProperty() {
+		return selectedProperty;
+	}
+
+	public void setSelected(boolean b) {
+		selectedProperty.set(b);
 	}
 }

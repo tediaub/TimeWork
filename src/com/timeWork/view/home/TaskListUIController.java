@@ -1,5 +1,6 @@
 package com.timeWork.view.home;
 
+import com.jfoenix.controls.JFXCheckBox;
 import com.timeWork.core.Timer;
 import com.timeWork.view.ViewController;
 
@@ -23,6 +24,8 @@ public class TaskListUIController extends ViewController{
     private Button btnPlay;
     @FXML
     private Label timeSTask;
+    @FXML
+    private JFXCheckBox selected;
 
 	private Timer timer;
 
@@ -60,6 +63,8 @@ public class TaskListUIController extends ViewController{
 		timeTask.textProperty().bind(timer.getTimeHrMinTextProperty());
 		timeSTask.textProperty().bind(timer.getTimeSecTextProperty());
 		stateProperty.bind(timer.getStateProperty());
+
+		selected.setSelected(timer.getSelectedProperty().getValue());
 	}
 
 	@FXML
@@ -75,5 +80,10 @@ public class TaskListUIController extends ViewController{
 	private void showDetail(){
 		mainControl.getDetailController().setTimer(timer);
 		mainControl.showView(mainControl.getDetailController());
+	}
+
+	@FXML
+	private void toggleSelect(){
+		timer.setSelected(selected.isSelected());
 	}
 }

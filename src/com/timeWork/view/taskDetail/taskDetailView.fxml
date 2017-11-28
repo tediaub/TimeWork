@@ -60,6 +60,5 @@
             </Tab>
          </tabs>
       </JFXTabPane>
-      <JFXButton layoutX="734.0" layoutY="79.0" />
    </children>
 </AnchorPane>

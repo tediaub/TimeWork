@@ -1,21 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTabPane?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Tab?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="621.0" prefWidth="831.0" style="-fx-background-color: #fdfdfd;" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.timeWork.view.home.HomeViewController">
    <children>
-      <JFXButton layoutX="37.0" layoutY="37.0" onAction="#createTask" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: e9e9e9;" text="Créer Tâche" />
-      <JFXTextField focusColor="#4d637b" layoutX="629.0" layoutY="42.0" promptText="Rechercher" unFocusColor="#4d637b" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="42.0" />
-      <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="769.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="42.0" AnchorPane.topAnchor="48.0">
-         <image>
-            <Image url="@search.png" />
-         </image>
-      </ImageView>
-      <ListView fx:id="timerList" focusTraversable="false" layoutX="30.0" layoutY="92.0" prefHeight="490.0" prefWidth="753.0" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="92.0" />
+      <JFXButton layoutX="717.0" layoutY="23.0" onAction="#createTask" prefHeight="35.0" prefWidth="100.0" style="-fx-background-color: e9e9e9;" text="Créer Tâche" />
+      <JFXTabPane layoutX="25.0" layoutY="80.0" prefHeight="516.0" prefWidth="761.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="80.0">
+         <tabs>
+            <Tab text="Tâches">
+              <content>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="761.0">
+                     <children>
+                        <JFXTextField focusColor="#4d637b" layoutX="25.0" layoutY="22.0" promptText="Rechercher" unFocusColor="#4d637b" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="22.0" />
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="160.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="25.0">
+                           <image>
+                              <Image url="@search.png" />
+                           </image>
+                        </ImageView>
+                        <ListView fx:id="timerList" focusTraversable="false" layoutY="58.0" prefHeight="393.0" prefWidth="701.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0" />
+                        <JFXButton layoutX="528.0" layoutY="22.0" onAction="#selectAll" text="Tous selectionner" />
+                        <JFXButton layoutX="654.0" layoutY="22.0" onAction="#deleteTasks" text="Supprimer" />
+                        <JFXButton layoutX="733.0" layoutY="22.0" onAction="#archiveTasks" text="Archiver" />
+                     </children>
+                  </AnchorPane>
+              </content>
+            </Tab>
+            <Tab text="Tâches archivées" />
+         </tabs>
+      </JFXTabPane>
+    <AnchorPane layoutX="536.0" layoutY="-35.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

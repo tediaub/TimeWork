@@ -84,6 +84,17 @@ public class TaskXml{
 		saveFile();
 	}
 
+	public static void removeTasks(Timer timer){
+		for (int i = 0; i < tasks.getChildren(taskMark).size(); i++) {
+			Element task = (Element) tasks.getChildren(taskMark).get(i);
+			if(task.getAttributeValue("id").equals(timer.getId())){
+				task.getParent().removeContent(task);
+				break;
+			}
+		}
+		saveFile();
+	}
+
 	public static void createFileXML(String path){
 		Element root = new Element("TimeWork");
 		Document doc = new Document(root);

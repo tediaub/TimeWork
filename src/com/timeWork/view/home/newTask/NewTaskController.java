@@ -24,7 +24,6 @@ public class NewTaskController extends ViewController{
 		mainControl.addTimer(new Timer(nameText.getText(),
 				customerText.getText(),
 				descriptionText.getText(),
-				"0",
 				0));
 		Stage stage = (Stage) rootPane.getScene().getWindow();
 		stage.close();

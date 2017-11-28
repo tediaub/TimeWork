@@ -1,39 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXCheckBox?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="60.0" styleClass="card" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.timeWork.view.home.TaskListUIController">
+
+<BorderPane xmlns="http://javafx.com/javafx/8.0.60" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.timeWork.view.home.TaskListUIController">
    <center>
-      <AnchorPane prefHeight="76.0" prefWidth="172.0" style="-fx-background-color: #ffffff;">
-         <children>
-            <Label fx:id="titleTask" layoutX="14.0" layoutY="12.0" prefHeight="27.0" prefWidth="83.0" styleClass="taskTitle" text="Label" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="5.0">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label id="hrMin" fx:id="timeTask" alignment="BASELINE_RIGHT" contentDisplay="TOP" layoutX="43.0" layoutY="29.0" prefHeight="31.0" prefWidth="86.0" text="00:00" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="14.0" />
-            <Label id="seconde" fx:id="timeSTask" alignment="BASELINE_LEFT" layoutX="154.0" prefHeight="20.0" prefWidth="15.0" text="00" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="25.0" />
-            <Label fx:id="projectTask" layoutX="14.0" layoutY="30.0" prefHeight="27.0" prefWidth="83.0" styleClass="subTitle" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="90.0">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
+      <BorderPane prefHeight="60.0" styleClass="card" stylesheets="@style.css">
+         <center>
+            <AnchorPane prefHeight="76.0" prefWidth="172.0" style="-fx-background-color: #ffffff;">
+               <children>
+                  <Label fx:id="titleTask" layoutX="14.0" layoutY="12.0" prefHeight="27.0" prefWidth="83.0" styleClass="taskTitle" text="Label" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="5.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+                  <Label id="hrMin" fx:id="timeTask" alignment="BASELINE_RIGHT" contentDisplay="TOP" layoutX="43.0" layoutY="29.0" prefHeight="31.0" prefWidth="86.0" text="00:00" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="14.0" />
+                  <Label id="seconde" fx:id="timeSTask" alignment="BASELINE_LEFT" layoutX="154.0" prefHeight="20.0" prefWidth="15.0" text="00" AnchorPane.rightAnchor="9.0" AnchorPane.topAnchor="25.0" />
+                  <Label fx:id="projectTask" layoutX="14.0" layoutY="30.0" prefHeight="27.0" prefWidth="83.0" styleClass="subTitle" text="Label" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="90.0">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </center>
+         <right>
+            <JFXButton graphicTextGap="0.0" onAction="#showDetail" prefHeight="60.0" prefWidth="60.0" ripplerFill="#686868" style="-fx-background-color: #f0f0f0;" text="Details" BorderPane.alignment="CENTER" />
+         </right>
+         <left>
+            <JFXButton fx:id="btnPlay" graphicTextGap="0.0" onAction="#playPause" prefHeight="60.0" prefWidth="60.0" ripplerFill="#344c64" styleClass="buttonPlay" BorderPane.alignment="CENTER">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="imageView" />
+               </graphic>
+            </JFXButton>
+         </left>
+      </BorderPane>
    </center>
-   <right>
-      <JFXButton graphicTextGap="0.0" onAction="#showDetail" prefHeight="60.0" prefWidth="60.0" ripplerFill="#686868" style="-fx-background-color: #f0f0f0;" text="Details" BorderPane.alignment="CENTER" />
-   </right>
    <left>
-      <JFXButton fx:id="btnPlay" graphicTextGap="0.0" onAction="#playPause" prefHeight="60.0" prefWidth="60.0" ripplerFill="#344c64" styleClass="buttonPlay" BorderPane.alignment="CENTER">
-         <graphic>
-            <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true" styleClass="imageView" />
-         </graphic>
-      </JFXButton>
+      <JFXCheckBox fx:id="selected" checkedColor="#344c64" onAction="#toggleSelect" unCheckedColor="#707070" BorderPane.alignment="CENTER">
+         <BorderPane.margin>
+            <Insets right="10.0" />
+         </BorderPane.margin>
+      </JFXCheckBox>
    </left>
 </BorderPane>

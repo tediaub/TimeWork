@@ -48,12 +48,6 @@ public class TaskDetailViewController extends ViewController{
 		tfMinutes.textProperty().removeListener(listener);
 		tfSeconds.textProperty().removeListener(listener);
 
-		taskName.textProperty().unbind();
-		taskDate.textProperty().unbind();
-		tfTask.textProperty().unbind();
-		tfProject.textProperty().unbind();
-		taDescription.textProperty().unbind();
-
 		taskName.textProperty().bind(timer.getTitleProperty());
 		taskDate.textProperty().bind(timer.getDateProperty());
 		tfTask.textProperty().bindBidirectional(timer.getTitleProperty());
@@ -101,6 +95,7 @@ public class TaskDetailViewController extends ViewController{
 		tfSeconds.setText(timer.getSecondesText(base));
 	}
 
+	//
 	private Long getTimeFromView(){
 		if(!tfHours.getText().isEmpty()
 				&& !tfMinutes.getText().isEmpty()
@@ -119,6 +114,12 @@ public class TaskDetailViewController extends ViewController{
 
 	@FXML
 	public void backToMenu(){
+		taskName.textProperty().unbind();
+		taskDate.textProperty().unbind();
+		tfTask.textProperty().unbindBidirectional(timer.getTitleProperty());
+		tfProject.textProperty().unbindBidirectional(timer.getProjectProperty());
+		taDescription.textProperty().unbindBidirectional(timer.getDescriptionProperty());
+
 		mainControl.showView(mainControl.getHomeController());
 	}
 }
