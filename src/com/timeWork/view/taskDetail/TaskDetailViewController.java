@@ -101,6 +101,7 @@ public class TaskDetailViewController extends ViewController{
 		tfSeconds.setText(timer.getSecondesText(base));
 	}
 
+	//
 	private Long getTimeFromView(){
 		if(!tfHours.getText().isEmpty()
 				&& !tfMinutes.getText().isEmpty()
