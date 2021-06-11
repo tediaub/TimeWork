@@ -45,6 +45,7 @@ public class TaskXml{
 					test.getAttributeValue("customer"),
 					test.getAttributeValue("description"),
 					Long.parseLong(test.getAttributeValue("time")));
+			t.setArchived(Boolean.parseBoolean(test.getAttributeValue("archive")));
 			t.getDateProperty().setValue(test.getAttributeValue("date"));
 			array.add(t);
 		}
@@ -62,6 +63,7 @@ public class TaskXml{
 		task.setAttribute("description", timer.getDescriptionProperty().get());
 		task.setAttribute("date", timer.getDateProperty().get());
 		task.setAttribute("time", Long.toString(timer.getTime()));
+		task.setAttribute("archive", Boolean.toString(timer.isArchived()));
 
 		tasks.addContent(task);
 
@@ -78,6 +80,7 @@ public class TaskXml{
 				task.setAttribute("description", timer.getDescriptionProperty().get());
 				task.setAttribute("date", timer.getDateProperty().get());
 				task.setAttribute("time", Long.toString(timer.getTime()));
+				task.setAttribute("archive", Boolean.toString(timer.isArchived()));
 				break;
 			}
 		}

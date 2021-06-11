@@ -18,23 +18,38 @@
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="761.0">
                      <children>
-                        <JFXTextField focusColor="#4d637b" layoutX="25.0" layoutY="22.0" promptText="Rechercher" unFocusColor="#4d637b" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="22.0" />
+                        <JFXTextField fx:id="searchText" focusColor="#4d637b" layoutX="25.0" layoutY="22.0" promptText="Rechercher" unFocusColor="#4d637b" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="22.0" />
                         <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="160.0" layoutY="25.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="25.0">
                            <image>
                               <Image url="@search.png" />
                            </image>
                         </ImageView>
                         <ListView fx:id="timerList" focusTraversable="false" layoutY="58.0" prefHeight="393.0" prefWidth="701.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0" />
-                        <JFXButton layoutX="528.0" layoutY="22.0" onAction="#selectAll" text="Tous selectionner" />
-                        <JFXButton layoutX="654.0" layoutY="22.0" onAction="#deleteTasks" text="Supprimer" />
-                        <JFXButton layoutX="733.0" layoutY="22.0" onAction="#archiveTasks" text="Archiver" />
+                        <JFXButton layoutX="528.0" layoutY="22.0" onAction="#selectAll" text="Tous selectionner" visible="false" AnchorPane.rightAnchor="194.0" AnchorPane.topAnchor="22.0" />
+                        <JFXButton layoutX="654.0" layoutY="22.0" onAction="#deleteTasks" text="Supprimer" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="22.0" />
+                        <JFXButton layoutX="733.0" layoutY="22.0" onAction="#archiveTasks" text="Archiver" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="22.0" />
                      </children>
                   </AnchorPane>
               </content>
             </Tab>
-            <Tab text="Tâches archivées" />
+            <Tab text="Tâches archivées">
+               <content>
+                  <AnchorPane prefHeight="200.0" prefWidth="200.0">
+                     <children>
+                        <JFXTextField fx:id="archiveSearchText" focusColor="#4d637b" layoutX="27.0" layoutY="23.0" promptText="Rechercher" unFocusColor="#4d637b" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="22.0" />
+                        <ImageView fitHeight="20.0" fitWidth="20.0" layoutX="213.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="160.0" AnchorPane.topAnchor="22.0">
+                           <image>
+                              <Image url="@search.png" />
+                           </image>
+                        </ImageView>
+                        <ListView fx:id="archiveTimerList" focusTraversable="false" layoutX="25.0" layoutY="65.0" prefHeight="393.0" prefWidth="701.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="55.0" />
+                        <JFXButton layoutX="538.0" layoutY="32.0" onAction="#archiveSelectAll" text="Tous selectionner" visible="false" AnchorPane.rightAnchor="194.0" AnchorPane.topAnchor="22.0" />
+                        <JFXButton layoutX="664.0" layoutY="32.0" onAction="#archiveDeleteTasks" text="Supprimer" AnchorPane.rightAnchor="105.0" AnchorPane.topAnchor="22.0" />
+                        <JFXButton layoutX="743.0" layoutY="32.0" onAction="#restoreTasks" text="Rétablir" AnchorPane.rightAnchor="38.0" AnchorPane.topAnchor="22.0" />
+                     </children>
+                  </AnchorPane>
+               </content></Tab>
          </tabs>
       </JFXTabPane>
-    <AnchorPane layoutX="536.0" layoutY="-35.0" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

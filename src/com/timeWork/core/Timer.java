@@ -36,6 +36,8 @@ public class Timer {
 
 	private SimpleBooleanProperty selectedProperty = new SimpleBooleanProperty();
 
+	private SimpleBooleanProperty archivedProperty = new SimpleBooleanProperty();
+
 	public Timer(String id, String title, String project, String description, long initTime) {
 		if(id != null){
 			uniqueID = id;
@@ -43,6 +45,7 @@ public class Timer {
 
 		stateProperty.setValue(PAUSE);
 		selectedProperty.setValue(false);
+		archivedProperty.setValue(false);
 
 		titleProperty.setValue(title);
 		projectProperty.setValue(project);
@@ -73,6 +76,7 @@ public class Timer {
 		descriptionProperty.addListener(listener);
 		dateProperty.addListener(listener);
 		time.addListener(listener);
+		archivedProperty.addListener(listener);
 	}
 
 	public Timer(String title, String project, String description, long initTime) {
@@ -205,5 +209,13 @@ public class Timer {
 
 	public void setSelected(boolean b) {
 		selectedProperty.set(b);
+	}
+
+	public boolean isArchived() {
+		return archivedProperty.getValue();
+	}
+
+	public void setArchived(boolean b) {
+		archivedProperty.set(b);
 	}
 }
