@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TimeWork>
-  <TASKS>
-    <TASK id="dc7e176a-c3f7-4736-a261-63e1f0035b40" title="bhhb" customer="zedezdzedezdezdzedezdzdcs" description="0" date="14/11/17 14:15" time="46675" archive="false" />
-    <TASK id="650bc18c-dbeb-499b-b822-0bd3e96791e8" title="ptroject" customer="descrip" description="0" date="11/06/21" time="1577" archive="true" />
-    <TASK id="77ee620f-6386-415c-bdee-5013b3623bf2" title="ghjhjjh" customer="hjbhhj" description="" date="11/06/21" time="6" archive="true" />
-    <TASK id="61325c3f-a5b7-4f26-93f6-5e3139bb0d22" title="azerty" customer="azerty" description="" date="11/06/21" time="0" archive="true" />
-    <TASK id="3db6daf5-dfc4-40ac-8c36-c030aa6dca1e" title="ezfezrfgre" customer="ezfrefer" description="" date="11/06/21" time="0" archive="true" />
-    <TASK id="97e1201e-84a7-4697-9f49-3bf2d113ae06" title="testTeddy" customer="tesysnjzdecfe" description="" date="11/06/21" time="0" archive="true" />
-    <TASK id="5a6f80a6-f005-41a6-9d4e-3fe756a551dc" title="fsdfqwds" customer="hqbfhsqvhjbq" description="&#x9;&#x9;&#x9;" date="11/06/21" time="2" archive="true" />
-    <TASK id="214a71d8-2aa8-4954-b9a9-ffbb7c037087" title="frefreerfrefrefrefrefre" customer="erfrferfer" description="ferfreferferfreferf" date="11/06/21" time="252" archive="false" />
-    <TASK id="6b360923-be87-4f44-8882-1cc39d1adaa8" title="erferfrefrefrfrfrefefe" customer="refefreferferferf" description="refref" date="11/06/21" time="250" archive="false" />
-  </TASKS>
+  <PROJECTS>
+    <PROJECT id="65f8b3f7-bd2e-4fa1-b2b7-591ff523a2c8" title="Teddy" color="0xec407aff">
+      <TASKS>
+        <TASK id="67981321-a2f2-47d0-85e3-0e3046b05fb9" title="test" description="gff" date="12/06/21" time="9" archive="false" customer="Teddy" />
+      </TASKS>
+    </PROJECT>
+  </PROJECTS>
 </TimeWork>
 

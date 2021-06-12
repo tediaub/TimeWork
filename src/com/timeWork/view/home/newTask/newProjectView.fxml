@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXColorPicker?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="267.0" prefWidth="592.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.timeWork.view.home.newTask.NewProjectController">
+   <children>
+      <AnchorPane layoutX="10.0" layoutY="6.0" prefHeight="70.0" prefWidth="600.0" style="-fx-background-color: #4d637b;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="114.0" layoutY="18.0" text="Ajouter un Projet" textFill="WHITE" AnchorPane.leftAnchor="120.0" AnchorPane.topAnchor="20.0">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="35.0" fitWidth="35.0" layoutX="54.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="70.0" AnchorPane.topAnchor="20.0">
+               <image>
+                  <Image url="@ico_project.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <JFXButton layoutX="292.0" layoutY="253.0" onAction="#createProject" prefHeight="38.0" prefWidth="70.0" ripplerFill="#344c64" style="-fx-background-color: #e9e9e9;" text="Ajouter" AnchorPane.bottomAnchor="20.0" AnchorPane.rightAnchor="70.0" />
+      <JFXColorPicker fx:id="projectColor" layoutX="116.0" layoutY="198.0" prefHeight="25.0" prefWidth="380.0" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="150.0" />
+      <JFXTextField fx:id="projectName" focusColor="#4d637b" labelFloat="true" layoutX="64.0" layoutY="88.0" prefHeight="25.0" prefWidth="464.0" promptText="Nom du projet" unFocusColor="#aaaaaa" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="90.0" />
+   </children>
+</AnchorPane>

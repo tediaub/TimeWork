@@ -5,7 +5,7 @@ import java.awt.Rectangle;
 import java.io.File;
 
 import com.timeWork.core.TaskXml;
-import com.timeWork.core.Timer;
+import com.timeWork.core.Task;
 import com.timeWork.view.MainController;
 import com.timeWork.view.widget.WidgetViewController;
 
@@ -26,7 +26,7 @@ public class Main extends Application {
 	private static Stage stageMainWindow;
 
 	private static WidgetViewController control;
-	private static ObservableList<Timer> timerList;
+	private static ObservableList<Task> timerList;
 
 	@Override
 	public void start(Stage primaryStage) {
@@ -64,7 +64,7 @@ public class Main extends Application {
 		stageMainWindow.show();
 	}
 
-	public static void setWidgetTimer(Timer timer){
+	public static void setWidgetTimer(Task timer){
 		control.setTimer(timer);
 	}
 

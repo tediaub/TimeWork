@@ -1,14 +1,19 @@
 package com.timeWork.view;
 
+import java.util.Calendar;
+
+import com.timeWork.core.Project;
+import com.timeWork.core.Task;
 import com.timeWork.core.TaskXml;
-import com.timeWork.core.Timer;
 import com.timeWork.view.home.HomeViewController;
 import com.timeWork.view.taskDetail.TaskDetailViewController;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -17,7 +22,8 @@ import javafx.stage.WindowEvent;
 
 public class MainController extends ViewController{
 
-	private static ObservableList<Timer> timerList;
+	private static ObservableList<Task> taskList;
+	private static ObservableList<Project> projectList;
 
 	private HomeViewController controlHome;
 	private TaskDetailViewController controlDetail;
@@ -29,12 +35,14 @@ public class MainController extends ViewController{
 	}
 
 	public void createMainView(Stage primaryStage){
-		timerList = TaskXml.getTaskList();
+		projectList = FXCollections.observableArrayList();
+		taskList = FXCollections.observableArrayList();
+		TaskXml.getData(projectList, taskList);
 
 		Region homeView = (Region) FxmlLoader.HOME_VIEW.getContentPane();
         controlHome = (HomeViewController)FxmlLoader.HOME_VIEW.getController();
         controlHome.setView(homeView);
-        controlHome.setTimerList(timerList);
+        controlHome.setTimerList(taskList);
 
         Region detailView = (Region) FxmlLoader.TASK_DETAIL_VIEW.getContentPane();
         controlDetail = (TaskDetailViewController)FxmlLoader.TASK_DETAIL_VIEW.getController();
@@ -52,16 +60,38 @@ public class MainController extends ViewController{
 				System.exit(0);
 			}
 		});
+        primaryStage.getIcons().add(new Image(getClass().getResourceAsStream("icon.png")));
+        primaryStage.setTitle("TimeWork v1.1");
         primaryStage.show();
+
+        Calendar calendar = Calendar.getInstance();
+        if ( calendar.get( Calendar.MONTH )==Calendar.JUNE && calendar.get( Calendar.DAY_OF_MONTH ) == 12) {
+        	BorderPane annivLayout = (BorderPane) FxmlLoader.ANNIV_VIEW.getContentPane();
+            Scene sceneAnniv = new Scene(annivLayout, Color.TRANSPARENT);
+            Stage stageAnniv = new Stage();
+            stageAnniv.setResizable(false);
+            stageAnniv.setScene(sceneAnniv);
+            stageAnniv.setTitle("Bon anniversaire !!!");
+            stageAnniv.show();
+        }
 	}
 
-	public void addTimer(Timer timer){
-		timerList.add(timer);
-		TaskXml.addTask(timer);
+	public void addTimer(Task task){
+		taskList.add(task);
+		TaskXml.addTask(task);
 	}
 
-	public static void updateTasks(Timer timer) {
-		TaskXml.updateTasks(timer);
+	public static void updateTasks(Task task) {
+		TaskXml.updateTasks(task);
+	}
+
+	public void addProject(Project project){
+		projectList.add(project);
+		TaskXml.addProject(project);
+	}
+
+	public ObservableList<Project> getProjectList(){
+		return projectList;
 	}
 
 	public HomeViewController getHomeController(){

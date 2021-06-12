@@ -1,12 +1,12 @@
 package com.timeWork.view.home;
 
-import com.timeWork.core.Timer;
+import com.timeWork.core.Task;
 import com.timeWork.view.FxmlLoader;
 
 import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 
-public class TaskListCell extends ListCell<Timer> {
+public class TaskListCell extends ListCell<Task> {
 
     Node renderer;
     TaskListUIController rendererController;
@@ -18,7 +18,7 @@ public class TaskListCell extends ListCell<Timer> {
     }
 
     @Override
-    protected void updateItem(Timer value, boolean empty) {
+    protected void updateItem(Task value, boolean empty) {
         super.updateItem(value, empty);
         String text = null;
         Node graphic = null;

@@ -2,8 +2,9 @@ package com.timeWork.view.home;
 
 import java.util.ArrayList;
 
+import com.timeWork.core.Task;
+import com.timeWork.core.TaskComparator;
 import com.timeWork.core.TaskXml;
-import com.timeWork.core.Timer;
 import com.timeWork.view.FxmlLoader;
 import com.timeWork.view.ViewController;
 
@@ -18,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -29,31 +31,31 @@ public class HomeViewController extends ViewController{
 	@FXML
     private TextField archiveSearchText;
     @FXML
-    private ListView<Timer> timerList;
+    private ListView<Task> timerList;
     @FXML
-    private ListView<Timer> archiveTimerList;
+    private ListView<Task> archiveTimerList;
 
-    private FilteredList<Timer> filteredData;
-    private FilteredList<Timer> archiveFilteredData;
+    private FilteredList<Task> filteredData;
+    private FilteredList<Task> archiveFilteredData;
 
-	private SortedList<Timer> sortedData;
-	private SortedList<Timer> archiveSortedData;
+	private SortedList<Task> sortedData;
+	private SortedList<Task> archiveSortedData;
 
-	private ObservableList<Timer> list;
-	private ObservableList<Timer> archiveList;
+	private ObservableList<Task> list;
+	private ObservableList<Task> archiveList;
 
     @FXML
 	private void initialize(){
-    	timerList.setCellFactory((ListView<Timer> lv) -> new TaskListCell());
-    	archiveTimerList.setCellFactory((ListView<Timer> lv) -> new TaskListCell());
+    	timerList.setCellFactory((ListView<Task> lv) -> new TaskListCell());
+    	archiveTimerList.setCellFactory((ListView<Task> lv) -> new TaskListCell());
     }
 
-	public void setTimerList(ObservableList<Timer> allTimerList) {
+	public void setTimerList(ObservableList<Task> allTimerList) {
 		list = FXCollections.observableArrayList();
 		archiveList = FXCollections.observableArrayList();
 
 		for (int i = 0; i < allTimerList.size(); i++) {
-			Timer timer = allTimerList.get(i);
+			Task timer = allTimerList.get(i);
 			if(timer.isArchived()){
 				archiveList.add(timer);
 			}else{
@@ -61,10 +63,10 @@ public class HomeViewController extends ViewController{
 			}
 		}
 
-		allTimerList.addListener(new ListChangeListener<Timer>() {
+		allTimerList.addListener(new ListChangeListener<Task>() {
 
 			@Override
-			public void onChanged(javafx.collections.ListChangeListener.Change<? extends Timer> c) {
+			public void onChanged(javafx.collections.ListChangeListener.Change<? extends Task> c) {
 				c.next();
 				list.addAll(c.getAddedSubList());
 			}
@@ -79,11 +81,11 @@ public class HomeViewController extends ViewController{
         archiveSearchText.textProperty().addListener(new SearchListener(archiveSearchText, archiveFilteredData));
 
         // 3. Wrap the FilteredList in a SortedList.
-        sortedData = new SortedList<Timer>(filteredData);
-        archiveSortedData = new SortedList<Timer>(archiveFilteredData);
+        sortedData = new SortedList<Task>(filteredData, new TaskComparator());
+        archiveSortedData = new SortedList<Task>(archiveFilteredData, new TaskComparator());
 
         // 4. Bind the SortedList comparator to the TableView comparator.
-        //sortedData.comparatorProperty().bind(deltaTable.comparatorProperty());
+        //sortedData.comparatorProperty().bind(timerList.comparatorProperty());
 
         // 5. Add sorted (and filtered) data to the table.
         timerList.setItems(sortedData);
@@ -96,14 +98,16 @@ public class HomeViewController extends ViewController{
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setScene(scene);
+        //stage.getIcons().add(new Image(getClass().getResourceAsStream("../icon.png")));
+        stage.setTitle("Nouvelle tâche");
         stage.show();
 	}
 
     @FXML
     void archiveTasks() {
-    	ArrayList<Timer> timerToArchive = new ArrayList<>();
+    	ArrayList<Task> timerToArchive = new ArrayList<>();
     	for (int i = 0; i < timerList.getItems().size(); i++) {
-			Timer timer = timerList.getItems().get(i);
+			Task timer = timerList.getItems().get(i);
 			if(timer.isSelected()){
 				timer.setArchived(true);
 				timer.setSelected(false);
@@ -116,9 +120,9 @@ public class HomeViewController extends ViewController{
 
     @FXML
     void restoreTasks() {
-    	ArrayList<Timer> timerToRestore = new ArrayList<>();
+    	ArrayList<Task> timerToRestore = new ArrayList<>();
     	for (int i = 0; i < archiveTimerList.getItems().size(); i++) {
-			Timer timer = archiveTimerList.getItems().get(i);
+			Task timer = archiveTimerList.getItems().get(i);
 			if(timer.isSelected()){
 				timer.setArchived(false);
 				timer.setSelected(false);
@@ -131,9 +135,9 @@ public class HomeViewController extends ViewController{
 
     @FXML
     void deleteTasks() {
-    	ArrayList<Timer> timerToDelete = new ArrayList<>();
+    	ArrayList<Task> timerToDelete = new ArrayList<>();
     	for (int i = 0; i < timerList.getItems().size(); i++) {
-			Timer timer = timerList.getItems().get(i);
+			Task timer = timerList.getItems().get(i);
 			if(timer.isSelected()){
 				TaskXml.removeTasks(timer);
 				timerToDelete.add(timer);
@@ -144,9 +148,9 @@ public class HomeViewController extends ViewController{
 
     @FXML
     void archiveDeleteTasks() {
-    	ArrayList<Timer> timerToDelete = new ArrayList<>();
+    	ArrayList<Task> timerToDelete = new ArrayList<>();
     	for (int i = 0; i < archiveTimerList.getItems().size(); i++) {
-			Timer timer = archiveTimerList.getItems().get(i);
+			Task timer = archiveTimerList.getItems().get(i);
 			if(timer.isSelected()){
 				TaskXml.removeTasks(timer);
 				timerToDelete.add(timer);
@@ -158,7 +162,7 @@ public class HomeViewController extends ViewController{
     @FXML
     void selectAll() {
     	for (int i = 0; i < timerList.getItems().size(); i++) {
-			Timer timer = timerList.getItems().get(i);
+			Task timer = timerList.getItems().get(i);
 			timer.setSelected(true);
 		}
     }
@@ -166,16 +170,16 @@ public class HomeViewController extends ViewController{
     @FXML
     void archiveSelectAll() {
     	for (int i = 0; i < archiveTimerList.getItems().size(); i++) {
-			Timer timer = archiveTimerList.getItems().get(i);
+			Task timer = archiveTimerList.getItems().get(i);
 			timer.setSelected(true);
 		}
     }
 
     private class SearchListener implements ChangeListener<String>{
 		private TextField searchTF;
-		private FilteredList<Timer> filterList;
+		private FilteredList<Task> filterList;
 
-		public SearchListener(TextField searchTF, FilteredList<Timer> filterList) {
+		public SearchListener(TextField searchTF, FilteredList<Task> filterList) {
 			this.searchTF = searchTF;
 			this.filterList = filterList;
 		}

@@ -1,7 +1,7 @@
 package com.timeWork.view.widget;
 
 import com.timeWork.Main;
-import com.timeWork.core.Timer;
+import com.timeWork.core.Task;
 import com.timeWork.core.property.BlockedBooleanProperty;
 import com.timeWork.view.ViewController;
 
@@ -26,7 +26,7 @@ import javafx.util.Duration;
 public class WidgetViewController extends ViewController{
 
 	private Main main;
-    private Timer timer;
+    private Task timer;
     private BlockedBooleanProperty extended = new BlockedBooleanProperty();
 
     @FXML
@@ -82,7 +82,7 @@ public class WidgetViewController extends ViewController{
 		setDragPane(root);
 	}
 
-	public void setTimer(Timer timer){
+	public void setTimer(Task timer){
 		this.timer = timer;
 
 		titleLabel.textProperty().unbind();
@@ -96,7 +96,7 @@ public class WidgetViewController extends ViewController{
 		timer.getStateProperty().addListener(new ChangeListener<Boolean>() {
 			@Override
 			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				if(newValue == Timer.PAUSE){
+				if(newValue == Task.PAUSE){
 					root.pseudoClassStateChanged(PseudoClass.getPseudoClass("play"), false);
 					playPauseImage.setImage(new Image(WidgetViewController.class.getResourceAsStream("play.png")));
 				}else{
@@ -127,9 +127,9 @@ public class WidgetViewController extends ViewController{
 
 	@FXML
 	private void playPause(){
-		if(timer.getState() == Timer.PLAY){
+		if(timer.getState() == Task.PLAY){
 			timer.stop();
-		}else if(timer.getState() == Timer.PAUSE){
+		}else if(timer.getState() == Task.PAUSE){
 			timer.start();
 		}
 	}

@@ -1,15 +1,19 @@
 package com.timeWork.view.taskDetail;
 
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.controls.JFXToggleButton;
-import com.timeWork.core.Timer;
+import com.timeWork.core.Project;
+import com.timeWork.core.Task;
 import com.timeWork.view.ViewController;
+import com.timeWork.view.home.newTask.ProjectListCell;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TextField;
 
 public class TaskDetailViewController extends ViewController{
 
@@ -20,7 +24,7 @@ public class TaskDetailViewController extends ViewController{
 	@FXML
     private JFXTextField tfTask;
     @FXML
-    private JFXTextField tfProject;
+    private JFXComboBox<Project> cbProject;
     @FXML
     private JFXTextArea taDescription;
     @FXML
@@ -30,9 +34,9 @@ public class TaskDetailViewController extends ViewController{
     @FXML
     private JFXTextField tfSeconds;
     @FXML
-    private JFXToggleButton toggleBase;
+    private TextField altTime;
 
-	private Timer timer;
+	private Task timer;
 
 	private UpdateTaskListener listener = new UpdateTaskListener();
 
@@ -41,7 +45,7 @@ public class TaskDetailViewController extends ViewController{
 
 	}
 
-	public void setTimer(Timer timer) {
+	public void setTimer(Task timer) {
 		this.timer = timer;
 
 		tfHours.textProperty().removeListener(listener);
@@ -51,29 +55,20 @@ public class TaskDetailViewController extends ViewController{
 		taskName.textProperty().bind(timer.getTitleProperty());
 		taskDate.textProperty().bind(timer.getDateProperty());
 		tfTask.textProperty().bindBidirectional(timer.getTitleProperty());
-		tfProject.textProperty().bindBidirectional(timer.getProjectProperty());
 		taDescription.textProperty().bindBidirectional(timer.getDescriptionProperty());
 
-		if(toggleBase.isSelected()){
-			setTimeParameter(100);
-		}else{
-			setTimeParameter(60);
-		}
-
-		toggleBase.selectedProperty().addListener(new ChangeListener<Boolean>() {
-			@Override
-			public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				if(newValue){
-					setTimeParameter(100);
-				}else {
-					setTimeParameter(60);
-				}
-			}
-		});
+		cbProject.setCellFactory((ListView<Project> lv) -> new ProjectListCell());
+		cbProject.setItems(mainControl.getProjectList());
+		cbProject.setValue(timer.getProject());
 
 		tfHours.textProperty().addListener(listener);
 		tfMinutes.textProperty().addListener(listener);
 		tfSeconds.textProperty().addListener(listener);
+
+		cbProject.valueProperty().addListener(listener);
+
+		setTimeParameter(60);
+		altTime.setText(String.format("%s:%s heure(s)", timer.getHoursText(100), timer.getMinutesText(100)));
 	}
 
 	private class UpdateTaskListener implements ChangeListener<Object>{
@@ -84,6 +79,11 @@ public class TaskDetailViewController extends ViewController{
 				Long time = getTimeFromView();
 				if(time != null){
 					timer.getTimeProperty().set(time);
+					altTime.setText(String.format("%s:%s heure(s)", timer.getHoursText(100), timer.getMinutesText(100)));
+				}
+
+				if(observable.equals(cbProject.valueProperty())){
+					timer.setProject(cbProject.valueProperty().getValue());
 				}
 			}
 		}
@@ -102,9 +102,6 @@ public class TaskDetailViewController extends ViewController{
 				&& !tfSeconds.getText().isEmpty()){
 			long time = Long.parseLong(tfHours.getText()) * 3600;
 			int base = 60;
-			if(toggleBase.isSelected()){
-				base = 100;
-			}
 			time += Long.parseLong(tfMinutes.getText()) * 3600/ base ;
 			time += Long.parseLong(tfSeconds.getText()) * 60/ base ;
 			return time;
@@ -117,8 +114,8 @@ public class TaskDetailViewController extends ViewController{
 		taskName.textProperty().unbind();
 		taskDate.textProperty().unbind();
 		tfTask.textProperty().unbindBidirectional(timer.getTitleProperty());
-		tfProject.textProperty().unbindBidirectional(timer.getProjectProperty());
 		taDescription.textProperty().unbindBidirectional(timer.getDescriptionProperty());
+		cbProject.valueProperty().removeListener(listener);
 
 		mainControl.showView(mainControl.getHomeController());
 	}

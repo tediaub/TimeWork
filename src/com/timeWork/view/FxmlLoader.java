@@ -19,7 +19,9 @@ public enum FxmlLoader {
 	WIDGET_VIEW("widget/widgetView.fxml", 1),
 	TASK_LIST_UI("home/taskListUI.fxml", 2),
 	NEW_TASK_VIEW("home/newTask/newTaskView.fxml", 3),
-	TASK_DETAIL_VIEW("taskDetail/taskDetailView.fxml", 4);
+	TASK_DETAIL_VIEW("taskDetail/taskDetailView.fxml", 4),
+	NEW_PROJECT_VIEW("home/newTask/newProjectView.fxml", 5),
+	ANNIV_VIEW("anniv/anniv.fxml", 6);
 
 	private FXMLLoader loader;
 	private int index;

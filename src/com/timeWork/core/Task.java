@@ -14,7 +14,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 
-public class Timer {
+public class Task implements Comparable<Task>{
 
 	private String uniqueID = UUID.randomUUID().toString();
 
@@ -38,22 +38,30 @@ public class Timer {
 
 	private SimpleBooleanProperty archivedProperty = new SimpleBooleanProperty();
 
-	public Timer(String id, String title, String project, String description, long initTime) {
+	private Project project;
+
+	public Task(String id, String title, Project project, String description, long initTime, boolean archived, String date) {
 		if(id != null){
 			uniqueID = id;
 		}
 
+		this.project = project;
+
 		stateProperty.setValue(PAUSE);
 		selectedProperty.setValue(false);
-		archivedProperty.setValue(false);
+		archivedProperty.setValue(archived);
 
 		titleProperty.setValue(title);
-		projectProperty.setValue(project);
+		projectProperty.bindBidirectional(project.getTitleProperty());
 		descriptionProperty.setValue(description);
 
 		String format = "dd/MM/yy";
 		SimpleDateFormat formater = new SimpleDateFormat(format);
-		dateProperty.setValue(formater.format(new Date()));
+		if(date != null){
+			dateProperty.setValue(date);
+		}else{
+			dateProperty.setValue(formater.format(new Date()));
+		}
 
 		time.set(initTime);
 		setTextProperty();
@@ -79,19 +87,23 @@ public class Timer {
 		archivedProperty.addListener(listener);
 	}
 
-	public Timer(String title, String project, String description, long initTime) {
+	public Task(String id, String title, Project project, String description, long initTime) {
+		this(id, title, project, description, initTime, false, null);
+	}
+
+	public Task(String title, Project project, String description, long initTime) {
 		this(null, title, project, description, initTime);
 	}
 
-	public Timer(String title, String project, String description) {
+	public Task(String title, Project project, String description) {
 		this(null, title, project, description, 0);
 	}
 
 	private class UpdateTaskListener implements ChangeListener<Object>{
 
-		Timer timer;
+		Task timer;
 
-		public UpdateTaskListener(Timer timer) {
+		public UpdateTaskListener(Task timer) {
 			this.timer = timer;
 		}
 
@@ -101,8 +113,9 @@ public class Timer {
 		}
 	}
 
-	public static void updateXmlTask(Timer timer){
+	public static void updateXmlTask(Task timer){
 		TaskXml.updateTasks(timer);
+		TaskXml.updateProject(timer.getProject());
 	}
 
 	public String getId(){
@@ -129,12 +142,23 @@ public class Timer {
 		return dateProperty;
 	}
 
+	public Project getProject(){
+		return project;
+	}
+
+	public void setProject(Project newProject){
+		TaskXml.moveTaskProject(this, project, newProject);
+		projectProperty.unbindBidirectional(project.getTitleProperty());
+		project = newProject;
+		projectProperty.bindBidirectional(project.getTitleProperty());
+	}
+
 	public long getTime(){
 		return time.get();
 	}
 
 	public void start(){
-		Task task = new Task();
+		Timer task = new Timer();
 		executor = Executors.newSingleThreadScheduledExecutor();
 		executor.scheduleAtFixedRate(task, 0, 1, TimeUnit.SECONDS);
 		stateProperty.setValue(PLAY);
@@ -145,7 +169,7 @@ public class Timer {
 		stateProperty.setValue(PAUSE);
 	}
 
-	private class Task implements Runnable{
+	private class Timer implements Runnable{
 		@Override
 		public void run() {
 			increaseTime();
@@ -217,5 +241,11 @@ public class Timer {
 
 	public void setArchived(boolean b) {
 		archivedProperty.set(b);
+	}
+
+	@Override
+	public int compareTo(Task o) {
+		System.out.println("teddy");
+		return 0;
 	}
 }
