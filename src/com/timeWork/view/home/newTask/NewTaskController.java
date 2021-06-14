@@ -49,7 +49,6 @@ public class NewTaskController extends ViewController{
         Stage stage = new Stage();
         stage.setResizable(false);
         stage.setScene(scene);
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("../../icon.png")));
         stage.setTitle("Ajouter un projet");
         stage.show();
 	}
